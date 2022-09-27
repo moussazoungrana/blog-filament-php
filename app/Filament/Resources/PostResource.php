@@ -35,6 +35,12 @@ class PostResource extends Resource
                             ->relationship('category','name')
                             ->searchable()
                             ->required(),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Visible')
+                            ->default(true),
+                        Forms\Components\Toggle::make('feature')
+                            ->label('A la une ?')
+                            ->default(false),
 
                     ])
             ]);
@@ -44,7 +50,18 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->default('Pas de description'),
+                Tables\Columns\BooleanColumn::make('feature')
+                    ->label('A la une ?'),
+                Tables\Columns\BooleanColumn::make('is_active')
+                    ->label('Visible'),
+                Tables\Columns\TextColumn::make('category.name')
+                    ->searchable()
+                    ->sortable()
+
             ])
             ->filters([
                 //
