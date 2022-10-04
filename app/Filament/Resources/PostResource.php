@@ -89,4 +89,9 @@ class PostResource extends Resource
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
+
+
+
+
+
 }

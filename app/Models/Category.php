@@ -19,12 +19,15 @@ class Category extends Model
         static::created(function (Category $category) {
             $category->update(['slug' => Str::slug($category->name) . '-' . $category->id]);
         });
+        static::updating(function (Category $category) {
+            $category->slug = Str::slug($category->name) . '-' . $category->id;
+        });
     }
 
 
     public function posts(): HasMany
     {
-        return $this->hasMany(Post::class,'category_id');
+        return $this->hasMany(Post::class, 'category_id');
     }
 
 

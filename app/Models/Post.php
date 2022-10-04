@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -16,8 +17,12 @@ class Post extends Model
     {
         parent::booted();
         static::created(function (Post $post) {
-            $post->update(['slug' => $post->title . '-' . $post->id]);
+            $post->update(['slug' => Str::slug($post->title)  . '-' . $post->id]);
         });
+        static::updating(function (Post $post) {
+            $post->slug = Str::slug($post->title)  . '-' . $post->id;
+        });
+
     }
 
     public function category(): BelongsTo
