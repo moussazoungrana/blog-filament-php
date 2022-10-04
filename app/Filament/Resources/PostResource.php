@@ -71,7 +71,13 @@ class PostResource extends Resource
 
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('is_active')
+                    ->query(fn(Builder $query):Builder => $query->where('is_active',true))
+                    ->label('Visible'),
+
+                Tables\Filters\Filter::make('feature')
+                    ->query(fn(Builder $query):Builder => $query->where('feature',true))
+                    ->label('A la une'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

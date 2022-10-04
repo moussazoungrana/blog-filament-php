@@ -33,7 +33,7 @@ class CategoryResource extends Resource
                             ->numeric()
                             ->default(1000),
                         Forms\Components\Toggle::make('is_active')
-                            ->label('Status')
+                            ->label('Visible')
                             ->default(true),
                     ])
 
@@ -49,7 +49,9 @@ class CategoryResource extends Resource
                 Tables\Columns\BooleanColumn::make('is_active')->label('Status'),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('is_active')
+                    ->query(fn(Builder $query):Builder => $query->where('is_active',true))
+                    ->label('Visible'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
