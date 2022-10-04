@@ -13,6 +13,10 @@ class Category extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
+
     protected static function booted()
     {
         parent::booted();

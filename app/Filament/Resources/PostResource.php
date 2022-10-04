@@ -29,10 +29,17 @@ class PostResource extends Resource
                             ->required(),
                         Forms\Components\TextInput::make('description')
                             ->nullable(),
+                        Forms\Components\SpatieMediaLibraryFileUpload::make('cover')
+                            ->minFiles(1)
+                            ->maxFiles(1)
+                            ->image()
+                            ->disk('media')
+                            ->collection('cover')
+                            ->required(),
                         Forms\Components\MarkdownEditor::make('content')
                             ->required(),
                         Forms\Components\Select::make('category_id')
-                            ->relationship('category','name')
+                            ->relationship('category', 'name')
                             ->searchable()
                             ->required(),
                         Forms\Components\Toggle::make('is_active')
@@ -89,9 +96,6 @@ class PostResource extends Resource
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }
-
-
-
 
 
 }
